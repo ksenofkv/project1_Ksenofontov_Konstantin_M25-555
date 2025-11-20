@@ -1,6 +1,7 @@
 # labyrinth_game/player_actions.py
 
-from .utils import get_room_exits, describe_current_room, get_room_items, get_room_puzzle   # Импортируем необходимые функции из utils.py
+from labyrinth_game.utils import get_room_exits, describe_current_room, get_room_items, get_room_puzzle 
+# Импортируем необходимые функции из utils.py
 
 def show_inventory(game_state):
     """
@@ -55,7 +56,8 @@ def move_player(game_state, direction):
         print(f"Вы переместились в {new_room}.")
         
         # Выводим описание новой комнаты
-        describe_current_room(game_state)  # Предполагается, что эта функция уже определена в utils.py
+        describe_current_room(game_state) 
+        # Предполагается, что эта функция уже определена в utils.py
     else:
         # Если выхода нет, выводим сообщение об ошибке
         print("Нельзя пойти в этом направлении.")

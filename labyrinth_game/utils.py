@@ -1,7 +1,7 @@
 
 # labyrinth_game/utils.py
 
-from .constants import ROOMS, TREASURE_CODE  # Импортируем словарь ROOMS и правильный код
+from labyrinth_game.constants import ROOMS, TREASURE_CODE  # Импортируем словарь ROOMS и правильный код
 
 def describe_current_room(game_state):
     """
@@ -109,19 +109,6 @@ def solve_puzzle(game_state):
     else:
         print("Неправильно. Попробуйте ещё раз.")
 
-
-def show_help():
-    print("\nДоступные команды:")
-    print("  go <direction>  - перейти в направлении (north/south/east/west)")
-    print("  look            - осмотреть текущую комнату")
-    print("  take <item>     - поднять предмет")
-    print("  use <item>      - использовать предмет из инвентаря")
-    print("  inventory       - показать инвентарь")
-    print("  solve           - попытаться решить загадку в комнате")
-    print("  quit            - выйти из игры")
-    print("  help            - показать это сообщение") 
-
-
 def attempt_open_treasure(game_state):
     """
     Реализует логику открытия сундука.
@@ -172,3 +159,14 @@ def attempt_open_treasure(game_state):
     else:
         # Если игрок отказался вводить код
         print("Вы отступаете от сундука.")
+
+def show_help():
+    print("\nДоступные команды:")
+    print("  go <direction>  - перейти в направлении (north/south/east/west)")
+    print("  look            - осмотреть текущую комнату")
+    print("  take <item>     - поднять предмет")
+    print("  use <item>      - использовать предмет из инвентаря")
+    print("  inventory       - показать инвентарь")
+    print("  solve           - попытаться решить загадку в комнате")
+    print("  quit            - выйти из игры")
+    print("  help            - показать это сообщение") 
