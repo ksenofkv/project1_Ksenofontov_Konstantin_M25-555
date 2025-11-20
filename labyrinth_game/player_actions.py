@@ -126,37 +126,3 @@ def look_around(game_state):
     describe_current_room(game_state)
 
 
-def solve_puzzle(game_state):
-    """
-    Позволяет игроку решить загадку в текущей комнате.
-    :param game_state: Словарь состояня игры.
-    :return: True, если загадка решена, иначе False.
-    """
-    # Получаем текущую комнату
-    current_room = game_state['current_room']
-    
-    # Получаем загадку из текущей комнаты (функция из utils.py)
-    puzzle = get_room_puzzle(current_room)
-    
-    # Проверяем, есть ли загадка в комнате
-    if puzzle is None:
-        print("Здесь нет загадки.")
-        return False
-    
-    # Распаковываем кортеж (вопрос, ответ)
-    question, answer = puzzle
-    
-    # Выводим вопрос загадки
-    print(question)
-    
-    # Получаем ответ от игрока
-    user_answer = input("Ваш ответ: ").strip().lower()
-    
-    # Проверяем, правильный ли ответ
-    if user_answer == answer.lower():
-        print("Правильно! Загадка решена.")
-        # Можно добавить логику, что-то происходит после решения загадки
-        return True
-    else:
-        print("Неправильно. Попробуйте ещё раз.")
-        return False

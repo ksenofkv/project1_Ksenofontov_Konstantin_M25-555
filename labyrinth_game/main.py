@@ -7,16 +7,9 @@
 #    main()
 
 
-#!/usr/bin/env python3
-
-# --- Импорт модулей ---
-#from labyrinth_game.constants import ROOMS
-#from labyrinth_game.player_actions import show_inventory, get_input
-#from labyrinth_game.utils import describe_current_room
-
 from labyrinth_game.constants import ROOMS
-from labyrinth_game.player_actions import move_player, look_around, solve_puzzle, show_inventory, get_input, take_item, use_item
-from labyrinth_game.utils import describe_current_room
+from labyrinth_game.player_actions import move_player, look_around, show_inventory, get_input, take_item, use_item
+from labyrinth_game.utils import describe_current_room, attempt_open_treasure, solve_puzzle, show_help
 
 # --- Определение состояния игры ---
 game_state = {
@@ -40,10 +33,12 @@ def main():
         describe_current_room(game_state)
 
         # Получаем команду от игрока
-        command = get_input("Введите команду (look, go, take, use, inventory, quit): ").strip()
+        command = get_input("Введите команду (look, go, take, use, inventory, solve, help, quit): ").strip()
 
         # Обрабатываем команду
         process_command(game_state, command)
+
+        attempt_open_treasure(game_state)        
 
     print(f"Вы прошли {game_state['steps_taken']} шагов.")
 
@@ -96,13 +91,19 @@ def process_command(game_state, command):
         case 'inventory':
             # Вызываем функцию отображения инвентаря
             show_inventory(game_state)
+        case 'solve':
+            # Вызываем функцию решения загадки
+            solve_puzzle(game_state)
+        case 'help':
+            # Вызываем функцию показа помощи
+            show_help()
         case 'quit':
             # Выводим сообщение и завершаем игру
             print("Спасибо за игру!")
             game_state['game_over'] = True
         case _:
             # Если команда не распознана, выводим сообщение
-            print("Неизвестная команда. Попробуйте: look, go, take, use, inventory, quit.")
+            print("Неизвестная команда. Попробуйте: look, go, take, use, inventory, solve, help, quit.")
 
 
 
