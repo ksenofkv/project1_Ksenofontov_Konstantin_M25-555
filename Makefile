@@ -19,10 +19,6 @@ clean:
 	rm -rf build/
 	rm -rf *.egg-info/
 
-# Команда для проверки стиля кода (если используется линтер)
-lint:
-	poetry run flake8 labyrinth_game/
-
 # Команда для запуска тестов (если есть)
 test:
 	poetry run pytest tests/
@@ -39,3 +35,12 @@ publish:
 # Команда для установки собранного пакета из директории dist/
 package-install:
 	python3 -m pip install dist/*.whl
+
+
+# Команда для проверки кода
+lint:
+	poetry run ruff check .
+
+# Команда для автоматического исправления ошибок
+lint-fix:
+	poetry run ruff check . --fix
