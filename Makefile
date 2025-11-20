@@ -26,3 +26,16 @@ lint:
 # Команда для запуска тестов (если есть)
 test:
 	poetry run pytest tests/
+
+
+# Команда для сборки пакета
+build:
+	poetry build
+
+# Команда для публикации пакета
+publish:
+	poetry publish --dry-run
+
+# Команда для установки собранного пакета из директории dist/
+package-install:
+	python3 -m pip install dist/*.whl
