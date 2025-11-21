@@ -1,7 +1,7 @@
 [project]
 name = "project1-ksenofontov-konstantin-m25-555"
 version = "0.1.0"
-description = ""
+description = "https://github.com/ksenofkv/project1_Ksenofontov_Konstantin_M25-555"
 authors = [
     {name = "ksenofkv",email = "ksenof.kv@gmail.com"}
 ]

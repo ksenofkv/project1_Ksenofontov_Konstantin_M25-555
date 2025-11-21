@@ -1,15 +1,10 @@
 #!/usr/bin/env python3
 
-#def main():
-#    print("Первая попытка запустить проект!")
-
-#if __name__ == "__main__":
-#    main()
-
-
 from labyrinth_game.constants import ROOMS
-from labyrinth_game.player_actions import move_player, look_around, show_inventory, get_input, take_item, use_item
-from labyrinth_game.utils import describe_current_room, attempt_open_treasure, solve_puzzle, show_help
+from labyrinth_game.player_actions import move_player, show_inventory, get_input 
+from labyrinth_game.player_actions import take_item, use_item
+from labyrinth_game.utils import describe_current_room, attempt_open_treasure
+from labyrinth_game.utils import solve_puzzle, show_help, random_event
 
 # --- Определение состояния игры ---
 game_state = {
@@ -33,16 +28,18 @@ def main():
         describe_current_room(game_state)
 
         # Получаем команду от игрока
-        command = get_input("Введите команду (look, go, take, use, inventory, solve, help, quit): ").strip()
+        command = get_input("Введите команду (look, go, north/south/east/west, take, use, inventory, solve, help, quit): ").strip()
 
         # Обрабатываем команду
         process_command(game_state, command)
 
-        attempt_open_treasure(game_state)        
+        # Открытие сундука в комнате
+        #attempt_open_treasure(game_state)   
+        
+        # срабатывание ловушки
+        random_event(game_state)     
 
     print(f"Вы прошли {game_state['steps_taken']} шагов.")
-
-
 
 def process_command(game_state, command):
     """
@@ -92,8 +89,13 @@ def process_command(game_state, command):
             # Вызываем функцию отображения инвентаря
             show_inventory(game_state)
         case 'solve':
-            # Вызываем функцию решения загадки
-            solve_puzzle(game_state)
+            # Проверяем, находится ли игрок в комнате 'treasure_room'
+            if game_state['current_room'] == 'treasure_room':
+                # Если да, вызываем функцию attempt_open_treasure
+                attempt_open_treasure(game_state)
+            else:
+                # Если нет, вызываем функцию solve_puzzle
+                solve_puzzle(game_state)
         case 'help':
             # Вызываем функцию показа помощи
             show_help()
@@ -101,11 +103,13 @@ def process_command(game_state, command):
             # Выводим сообщение и завершаем игру
             print("Спасибо за игру!")
             game_state['game_over'] = True
+        case 'north' | 'south' | 'east' | 'west':
+            # Реализуем возможность движения по односложным командам
+            # Например, если игрок ввел 'north', то это эквивалентно 'go north'
+            move_player(game_state, cmd)
         case _:
             # Если команда не распознана, выводим сообщение
             print("Неизвестная команда. Попробуйте: look, go, take, use, inventory, solve, help, quit.")
-
-
 
 if __name__ == "__main__":
     main()
